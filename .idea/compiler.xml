@@ -9,19 +9,23 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="cart-service" />
-        <module name="inventory-service" />
-        <module name="payment-service" />
-        <module name="product-service" />
-        <module name="user-service" />
-        <module name="order-service" />
-        <module name="notification-service" />
+        <module name="demo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cart-service" target="17" />
+      <module name="inventory-service" target="17" />
+      <module name="notification-service" target="17" />
+      <module name="order-service" target="17" />
+      <module name="payment-service" target="17" />
+      <module name="product-service" target="17" />
+      <module name="user-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="cart-service" options="-parameters" />
+      <module name="demo" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="notification-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
