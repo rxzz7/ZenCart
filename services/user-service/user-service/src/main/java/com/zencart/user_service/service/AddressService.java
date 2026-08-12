@@ -8,9 +8,8 @@ import java.util.List;
 public interface AddressService {
 
     List<AddressDTO> findAll();
-    AddressDTO findById(final Integer userId);
+    AddressDTO findById(final Integer addressId);
     AddressDTO save(final AddressDTO addressDTO);
-    ResponseEntity<AddressDTO> update(final AddressDTO addressDTO);
-    ResponseEntity<AddressDTO> update(final Integer addressId, final AddressDTO addressDTO);
+    AddressDTO update(final Integer addressId, final AddressDTO addressDTO);
     void deleteById(final Integer addressId);
 }

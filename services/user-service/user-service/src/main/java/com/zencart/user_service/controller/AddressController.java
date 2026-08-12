@@ -44,14 +44,15 @@ public class AddressController {
     @PutMapping
     public ResponseEntity<AddressDTO> update(@RequestBody @NotNull(message = "Fields must not be empty") @Valid AddressDTO addressDTO){
         log.info("**AddressController ; update Address");
-        return addressService.update(addressDTO);
+//        return addressService.update(addressDTO);
+        return ResponseEntity.ok(addressService.update(addressDTO));
     }
 
     @PutMapping("/{addressId}")
     public ResponseEntity<AddressDTO> update(@PathVariable("addressId") @NotBlank(message = "Input must not be empty") @Valid Integer addressId ,
                                              @RequestBody @NotNull(message = "Fields must not be empty") @Valid AddressDTO addressDTO){
         log.info("**AddressController; Update address by id**");
-        return addressService.update(addressId, addressDTO);
+        return ResponseEntity.ok(addressService.update(addressId, addressDTO));
     }
 
 
