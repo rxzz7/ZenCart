@@ -2,7 +2,6 @@ package com.zencart.user_service.service.serviceImpl;
 
 import com.zencart.user_service.dto.UserDTO;
 import com.zencart.user_service.entity.User;
-import com.zencart.user_service.exception.ResourceNotFoundException;
 import com.zencart.user_service.exception.UserObjectNotFoundException;
 import com.zencart.user_service.mapper.UserMapper;
 import com.zencart.user_service.repo.UserRepo;
@@ -13,10 +12,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import tools.jackson.databind.util.BeanUtil;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -73,7 +70,7 @@ public class UserServiceImpl implements UserService {
 //        return userMapper.toDTO(updatedUser);
 
         User existingUser = userRepo.findById(userId).orElseThrow(() ->
-                new ResourceNotFoundException("User not found"));
+                new UserObjectNotFoundException("User not found"));
 
         BeanUtils.copyProperties(userDTO, existingUser, "id", "credential", "addresses");
         User updatedUser = userRepo.save(existingUser);

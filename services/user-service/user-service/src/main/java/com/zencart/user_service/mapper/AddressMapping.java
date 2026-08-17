@@ -5,7 +5,7 @@ import com.zencart.user_service.dto.UserDTO;
 import com.zencart.user_service.entity.Address;
 import com.zencart.user_service.entity.User;
 
-public class AddressMapping {
+public final class AddressMapping {
 
     public static AddressDTO toDTO(final Address address){
 
@@ -30,7 +30,7 @@ public class AddressMapping {
     public static Address toEntity(AddressDTO addressDTO){
 
         User user = User.builder()
-                .UserId(addressDTO.getUserDTO().getUserId())
+                .userId(addressDTO.getUserDTO().getUserId())
                 .firstName(addressDTO.getUserDTO().getFirstName())
                 .lastName(addressDTO.getUserDTO().getLastName())
                 .imageUrl(addressDTO.getUserDTO().getImageUrl())

@@ -24,7 +24,7 @@ public class User extends BaseEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", unique = true, updatable = false, nullable = false)
-    private Integer UserId;
+    private Integer userId;
 
     @Column(name = "first_name")
     private String firstName;

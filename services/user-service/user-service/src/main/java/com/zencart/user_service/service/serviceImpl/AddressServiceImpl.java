@@ -55,6 +55,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDTO update(Integer addressId, AddressDTO addressDTO) {
         log.info("Updating address with id {}", addressId);
+
         Address existingAddress = addressRepo.findById(addressId).orElseThrow(()->
                 new AddressNotFoundException(String.format("Address with id %d not found", addressId)));
 
