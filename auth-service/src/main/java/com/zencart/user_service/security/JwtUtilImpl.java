@@ -51,6 +51,8 @@ public class JwtUtilImpl implements JwtUtil{
     @Value("${jwt.private-key-location:classpath:keys/private_key.pem}")
     Resource privateKeyResource;
 
+    public static final String KEY_ID = "zencart-key-1";
+
     @Getter
     private final long expiration = 1000 * 60 * 60;
 
@@ -74,7 +76,7 @@ public class JwtUtilImpl implements JwtUtil{
             throw new IllegalStateException("Unable to load JWT RSA private key");
         }
     }
-
+//private key to sign the jwt and public key is to validate
     @Override
     public String generateToken(String subject, String role) {
         Date now = new Date();
@@ -85,6 +87,7 @@ public class JwtUtilImpl implements JwtUtil{
                 .audience().add("zencart-api").and()
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + expiration))
+                .header().keyId(KEY_ID).and()
                 .signWith(getSigningKey(),Jwts.SIG.RS256) //algorithm RSA + SHA256
                 .compact();
     }
