@@ -72,7 +72,9 @@ public class SecurityConfig {
                                 "/api/auth/forgot-password",
                                 "/api/auth/reset-password",
                                 "/api/auth/register",
-                                "/api/auth/login"
+                                "/api/auth/login",
+                                "/api/auth/refresh",
+                                "/.well-known/jwks.json"
                         ).permitAll()
 
                         .anyRequest().authenticated()

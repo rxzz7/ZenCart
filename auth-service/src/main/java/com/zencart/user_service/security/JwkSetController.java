@@ -23,7 +23,7 @@ public class JwkSetController {
 
     public static final String KEY_ID = "zencart-key-1";
 
-    @Value("${jwt.private-key-location:classpath:keys/public_key.pem}")
+    @Value("${jwt.public-key-location:classpath:keys/public_key.pem}")
     private Resource publicKeyResource;
 
     @GetMapping("/.well-known/jwks.json")
@@ -48,7 +48,7 @@ public class JwkSetController {
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
             return (RSAPublicKey) KeyFactory.getInstance("RSA").generatePublic(keySpec);
         }catch (Exception ex){
-            throw new IllegalStateException("Unable to load JWT RSA public key");
+            throw new IllegalStateException("Unable to load JWT RSA public key", ex);
         }
     }
 }
