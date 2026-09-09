@@ -54,7 +54,7 @@ public class JwtUtilImpl implements JwtUtil{
     public static final String KEY_ID = "zencart-key-1";
 
     @Getter
-    private final long expiration = 1000 * 60 * 60;
+    private final long expiration = 1000 * 120 * 120;
 
     //converting the secret key representation from Base64 text back into bytes.
 //    private SecretKey getSigningKey(){
