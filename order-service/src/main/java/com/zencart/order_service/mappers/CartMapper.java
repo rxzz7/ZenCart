@@ -14,12 +14,14 @@ public interface CartMapper {
     static CartDto map(Cart cart){
         if(cart == null) return null;
 
-        Set<OrderDto> orderDto =cart.getOrders().stream()
-                        .map(order -> OrderDto.builder()
+        Set<OrderDto> orderDto = cart.getOrders() == null
+                        ? new java.util.HashSet<>()
+                        : cart.getOrders().stream().map(order -> OrderDto.builder()
                                 .orderId(order.getOrderId())
                                 .orderDate(order.getOrderDate())
                                 .orderDesc(order.getOrderDesc())
                                 .orderFee(order.getOrderFee())
+                                .productId(order.getProductId())
                                 .build())
                         .collect(Collectors.toSet());
 
@@ -39,19 +41,24 @@ public interface CartMapper {
     static Cart map(CartDto cartDto){
         if (cartDto == null) return null;
 
-        Set<Order> orders = cartDto.getOrderDtos().stream()
-                .map(order -> Order.builder()
+        Cart cart = Cart.builder()
+                .cartId(cartDto.getCartId())
+                .userId(cartDto.getUserId())
+                .build();
+
+        Set<Order> orders = cartDto.getOrderDtos() == null
+                ? new java.util.HashSet<>()
+                : cartDto.getOrderDtos().stream().map(order -> Order.builder()
                         .orderId(order.getOrderId())
                         .orderDate(order.getOrderDate())
                         .orderDesc(order.getOrderDesc())
                         .orderFee(order.getOrderFee())
+                        .productId(order.getProductId())
+                        .cart(cart)
                         .build())
                 .collect(Collectors.toSet());
+        cart.setOrders(orders);
+        return cart;
 
-        return Cart.builder()
-                .cartId(cartDto.getCartId())
-                .userId(cartDto.getUserId())
-                .orders(orders)
-                .build();
     }
 }

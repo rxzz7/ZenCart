@@ -25,6 +25,7 @@ public class ProductDto implements Serializable {
     private String productTitle;
     private String imageUrl;
     private String sku;
+    @JsonProperty("price")
     private Double priceUnit;
     private Integer quantity;
 

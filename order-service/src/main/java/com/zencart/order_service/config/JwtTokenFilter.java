@@ -13,6 +13,6 @@ public class JwtTokenFilter {
         if(!(authentication instanceof JwtAuthenticationToken jwtAuthenticationToken)){
             return "";
         }
-        return "Bearer " + jwtAuthenticationToken.getToken().getTokenValue();
+        return jwtAuthenticationToken.getToken().getTokenValue();
     }
 }
