@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true , exclude = "orders")
@@ -14,7 +15,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "carts")
-public class Cart extends BaseEntity{
+public class Cart extends BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

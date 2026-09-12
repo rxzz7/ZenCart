@@ -11,6 +11,7 @@ import tools.jackson.databind.ext.javatime.deser.LocalDateTimeDeserializer;
 import tools.jackson.databind.ext.javatime.ser.LocalDateTimeSerializer;
 
 import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true, exclude = "cart")
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "orders")
-public class Order extends BaseEntity{
+public class Order extends BaseEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
