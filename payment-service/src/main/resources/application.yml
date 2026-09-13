@@ -17,7 +17,12 @@ spring:
 #  flyway:
 #    enabled: true
 #    locations: classpath:db/migration
-
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      retries: 3
+      batch-size: 16384
+      buffer-memory: 33554432
 logging:
   level:
     org.hibernate.SQL: DEBUG

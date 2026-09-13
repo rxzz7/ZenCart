@@ -1,6 +1,10 @@
 package com.zencart.payment_service.service.impl;
 
-import com.zencart.payment_service.config.JwtTokenFilter;
+import com.google.gson.Gson;
+import com.zencart.payment_service.constant.KafkaConstant;
+import com.zencart.payment_service.dto.KafkaPaymentDto;
+import com.zencart.payment_service.event.EventProducer;
+import com.zencart.payment_service.security.JwtTokenFilter;
 import com.zencart.payment_service.dto.OrderDto;
 import com.zencart.payment_service.dto.PaymentDto;
 import com.zencart.payment_service.dto.UserDto;
@@ -14,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.*;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +32,8 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepo paymentRepo;
     private final ModelMapper modelMapper;
     private final CallAPI callAPI;
+    private final EventProducer eventProducer;
+    private final Gson gson = new Gson();
 
 
     @Override
@@ -115,10 +122,14 @@ public class PaymentServiceImpl implements PaymentService {
         }catch (Exception e) {
             log.error("Error fetching order or user info: {}", e.getMessage());
         }
-         //
-         //
-         //
-         //
+        KafkaPaymentDto kafkaPaymentDto = KafkaPaymentDto.builder()
+                .paymentId(savedPaymentDto.getPaymentId())
+                .isPayed(savedPaymentDto.getIsPayed())
+                .paymentStatus(savedPaymentDto.getPaymentStatus())
+                .userId(savedPaymentDto.getUserId())
+                .orderId(savedPaymentDto.getOrderId())
+                .build();
+        eventProducer.send(KafkaConstant.STATUS_PAYMENT_SUCCESSFUL, gson.toJson(kafkaPaymentDto));
         return savedPaymentDto;
     }
 

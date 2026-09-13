@@ -57,7 +57,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<PaymentDto> save(
             @RequestBody
             @NotNull(message = "Input must not be NULL!")

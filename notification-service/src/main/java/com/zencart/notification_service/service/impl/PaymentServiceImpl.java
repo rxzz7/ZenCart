@@ -21,6 +21,11 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public Payment savePayment(PaymentDto paymentDto) {
+        log.info(
+                "Saving payment: id={}, status={}",
+                paymentDto.getPaymentId(),
+                paymentDto.getPaymentStatus()
+        );
         try {
             return paymentRepo.save(PaymentMapper.map(paymentDto));
         } catch (Exception e) {
