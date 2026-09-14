@@ -74,3 +74,5 @@ files
 
 # JWT private keys
 auth-service/src/main/resources/keys/*.pem
+
+.env

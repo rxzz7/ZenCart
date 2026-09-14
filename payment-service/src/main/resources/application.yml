@@ -27,3 +27,8 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.flywaydb: DEBUG
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9090/eureka
