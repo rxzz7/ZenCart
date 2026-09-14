@@ -8,7 +8,8 @@ public interface PaymentMapper {
         static Payment map(PaymentDto paymentDto){
             if(paymentDto == null) return null;
             return Payment.builder()
-                    .paymentId(paymentDto.getPaymentId())
+//                    .paymentId(paymentDto.getPaymentId()) //the payment object that comes already
+//                    has an id so doing this will give StaleObjectStateException
                     .paymentStatus(paymentDto.getPaymentStatus())
                     .isPayed(paymentDto.getIsPayed())
                     .userId(paymentDto.getUserId())

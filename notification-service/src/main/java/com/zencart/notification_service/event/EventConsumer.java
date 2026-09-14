@@ -30,28 +30,21 @@ public class EventConsumer {
     public void paymentOrderKafkaOnboarding(String message){
         log.info("Payment event received on notification-service");
         PaymentDto paymentDto = gson.fromJson(message, PaymentDto.class);
-        log.info(
-                "Processing payment event: paymentId={}, userId={}, paymentStatus={}, thread={}",
-                paymentDto.getPaymentId(), // use the actual Payment ID getter
-                paymentDto.getUserId(),
-                paymentDto.getPaymentStatus(),
-                Thread.currentThread().getName()
-        );
         paymentService.savePayment(paymentDto);
 
         EmailDetails emailDetails = EmailDetails.builder()
                 .recipient("sarjusk1586@gmail.com")///
-                .msgBody(msgBody(paymentDto.getIsPayed(), paymentDto.getPaymentStatus()))
+                .msgBody(msgBody(paymentDto))
                 .subject("Payment successfully , Order with UserId: " + paymentDto.getUserId())
                 .attachment("Please, check the full information in invoice: " + LocalDateTime.now())
                 .build();
         String emailResult = emailService.sendSimpleMail(emailDetails);
     }
 
-    private String msgBody(Boolean isPayed, PaymentStatus paymentStatus) {
-        return "Payment in order product cart successfully: \n " +
-                " + IsPays: " + isPayed +
-                "\n + PaymentStatus: " + paymentStatus.getStatus() +
+    private String msgBody(PaymentDto paymentDto) {
+        return "Payment for order id: " + paymentDto.getOrderId() +
+                " \n  is payed : " + paymentDto.getIsPayed() +
+                "\n Payment Status is: " + paymentDto.getPaymentStatus() +
                 "\n\nDate: " + LocalDate.now() +
                 "\nTime: " + LocalTime.now();
     }
