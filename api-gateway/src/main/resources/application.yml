@@ -1,44 +1,42 @@
 server:
   port: 8087
 
-
 spring:
   application:
     name: API-GATEWAY
-  profiles:
-    active:
-      - default
+
   cloud:
     gateway:
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
-      routes:
-        - id: ORDER-SERVICE
-          uri: lb://ORDER-SERVICE
-          predicates:
-            - Path=/order-service/**
-          filters:
-            - StripPrefix=1
-        - id: PAYMENT-SERVICE
-          uri: lb://PAYMENT-SERVICE
-          predicates:
-            - Path=/payment-service/**
-          filters:
-            - StripPrefix=1
-        - id: PRODUCT-SERVICE
-          uri: lb://PRODUCT-SERVICE
-          predicates:
-            - Path=/product-service/**
-          filters:
-            - StripPrefix=1
-        - id: USER-SERVICE
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/**
-          filters:
-            - StripPrefix=1
+      server:
+        webmvc:
+          routes:
+            - id: ORDER-SERVICE
+              uri: lb://ORDER-SERVICE
+              predicates:
+                - Path=/order-service/**
+              filters:
+                - StripPrefix=1
 
+            - id: PAYMENT-SERVICE
+              uri: lb://PAYMENT-SERVICE
+              predicates:
+                - Path=/payment-service/**
+              filters:
+                - StripPrefix=1
 
+            - id: PRODUCT-SERVICE
+              uri: lb://PRODUCT-SERVICE
+              predicates:
+                - Path=/product-service/**
+              filters:
+                - StripPrefix=1
+
+            - id: USER-SERVICE
+              uri: lb://USER-SERVICE
+              predicates:
+                - Path=/user-service/**
+              filters:
+                - StripPrefix=1
 
 eureka:
   client:
